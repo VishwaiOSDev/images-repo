@@ -59,76 +59,49 @@ opt_in_rules:
   - nimble_operator
   - operator_usage_whitespace  
   - vertical_parameter_alignment  
+  - comment_spacing
   
-disabled_rules: 
-  - force_cast
-  - force_try
-  - nesting    
-  - cyclomatic_complexity  
-  - todo
+disabled_rules:
+  - force_cast 
+  - force_try 
+  - fallthrough 
+  - nesting     
+  - cyclomatic_complexity
   - legacy_constructor    
-  - line_length
   - function_body_length
-  - file_length
   - type_body_length 
   - type_name
-  - switch_case_on_newline
   - private_outlet 
-  - fallthrough 
+ 
   - conditional_returns_on_newline
-  - function_parameter_count 
-  - inclusive_language 
-  - large_tuple 
+  - function_parameter_count
+  - inclusive_language  
   - sorted_imports
   - trailing_whitespace
 
   - identifier_name 
   - switch_case_alignment
-  - comment_spacing
-  - vertical_parameter_alignment  #to be fixed
+  - vertical_parameter_alignment
 
 included: 
   - Sources
 
-  
 # Custom Rules
-force_cast: warning # implicitly. Give warning only for force casting
+force_cast: warning # implicitly. Give warning only for force casting  
 
 file_length:
   warning: 2000
   error: 2500
 
 line_length:
-  warning: 160
+  warning: 140
+  error: 200
   ignores_comments: true
   ignores_interpolated_strings: true
 
-# Need to uncomment this
 switch_case_alignment:
-    indented_cases: true
+  indented_cases: true
 
-# identifier_name:
-#   min_length:
-#     warning: 3
-#   max_length:
-#     warning: 70
-#     error: 100
-#   validates_start_with_lowercase: false 
-#   excluded: # excluded via string array
-#     - id
-#     - vc
-#     - to
-#     - a
-#     - b
-#     - t
-#     - x
-#     - y
-#     - z
-#     - p
-#     - xy
-#     - dx
-#     - dy
-#     - gr
 return_arrow_whitespace: error
 opening_brace: error
 legacy_constructor: error
@@ -138,11 +111,6 @@ empty_count: warning
 shorthand_operator: warning
 reporter: "xcode"
 custom_rules:
-#    empty_first_line:
-#        name: "Empty First Line"
-#        regex: '(^[ a-zA-Z ]*(?:protocol|extension|class|struct) (?!(?:var|let))[ a-zA-Z:]*\{\n *\S+)'
-#        message: "There should be an empty line after a declaration"
-#        severity: error
     multiple_empty_lines:
         name: "Multiple Empty Lines"
         regex: '((?:\s*\n){3,})'
@@ -174,5 +142,20 @@ custom_rules:
         message: ".self shouldn't be used more than once on a given statement"
         regex: "(?<!\")self\\.(?:\\p{L}+\\.)*self"
         severity: warning
-    
-
+    double_space: # from https://github.com/IBM-Swift/Package-Builder
+        include: "*.swift"
+        name: "Double space"
+        regex: '([a-z,A-Z] \s+)'
+        message: "Double space between keywords"
+        match_kinds: keyword
+        severity: warning
+    comments_space: # from https://github.com/brandenr/swiftlintconfig
+        name: "Space After Comment"
+        regex: '(^ *//\w+)'
+        message: "There should be a space after //"
+        severity: warning
+    empty_line_after_guard: # from https://github.com/brandenr/swiftlintconfig
+        name: "Empty Line After Guard"
+        regex: '(^ *guard[ a-zA-Z0-9=?.\(\),><!]*\{[ a-zA-Z0-9=?.\(\),><!]*\}\n *(?!(?:return|guard))\S+)'
+        message: "There should be an empty line after a guard"
+        severity: warning
